@@ -18,6 +18,7 @@ export default {
 ## Usage
 
 Plugin transforms any `.vue.svg` imports into Vue components.
+
 The `.vue.svg` files must exist on the drive, it will not work with just `.svg`.
 
 ```vue
