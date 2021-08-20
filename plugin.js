@@ -2,11 +2,12 @@ const { promises: fs } = require('fs')
 const hashsum = require('hash-sum')
 const { compileTemplate } = require('@vue/compiler-sfc')
 
-module.exports = function plugin() {
+module.exports = function plugin(snowpackConfig, pluginOptions) {
+  const input = pluginOptions.input || '.svg';
   return {
     name: 'snowpack-vue-svg-plugin',
     resolve: {
-      input: ['.vue.svg'],
+      input: [input],
       output: ['.js']
     },
     async load({ filePath, isSSR }) {

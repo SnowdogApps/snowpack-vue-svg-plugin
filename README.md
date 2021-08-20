@@ -11,15 +11,24 @@ npm install --save-dev snowpack-vue-svg-plugin
 export default {
   plugins: [
     'snowpack-vue-svg-plugin',
+    {
+      /* See options below */
+    }
   ]
 }
 ```
 
+## Plugin Options
+
+| Name    |   Type   | Description                                     |
+| :-------| :------: | :---------------------------------------------- |
+| `input` | `string` | File extension to transform (default: `'.svg'`) |
+
 ## Usage
 
-Plugin transforms any `.vue.svg` imports into Vue components.
+Plugin transforms any `svg` (target file extension configurable, e.g. `.vue.svg`) imports into Vue components.
 
-The `.vue.svg` files must exist on the drive, it will not work with just `.svg`.
+Will not transform remote files (files must exist on the drive).
 
 ```vue
 // Component.vue
@@ -28,7 +37,7 @@ The `.vue.svg` files must exist on the drive, it will not work with just `.svg`.
 </template>
 
 <script>
-import Logo from '../assets/logo.vue.svg'
+import Logo from '../assets/logo.svg'
 
 export default {
   components: {
