@@ -13,7 +13,7 @@
   ],
   "main": "plugin.js",
   "dependencies": {
-    "@vue/compiler-sfc": "^3.2.0",
+    "@vue/compiler-sfc": "^3.2.4",
     "hash-sum": "^2.0.0"
   }
 }
