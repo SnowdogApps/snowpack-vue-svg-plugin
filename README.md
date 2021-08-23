@@ -1,5 +1,5 @@
 # snowpack-vue-svg-plugin
-A Snowpack plugin to import SVG files like Vue components.
+A Snowpack plugin to import SVG files to be used as Vue components.
 
 ```
 yarn add -D snowpack-vue-svg-plugin
@@ -10,16 +10,12 @@ npm install --save-dev snowpack-vue-svg-plugin
 // snowpack.config.mjs
 export default {
   plugins: [
-    'snowpack-vue-svg-plugin',
+    'snowpack-vue-svg-plugin'
   ]
 }
 ```
 
 ## Usage
-
-Plugin transforms any `.vue.svg` imports into Vue components.
-
-The `.vue.svg` files must exist on the drive, it will not work with just `.svg`.
 
 ```vue
 // Component.vue
@@ -28,7 +24,7 @@ The `.vue.svg` files must exist on the drive, it will not work with just `.svg`.
 </template>
 
 <script>
-import Logo from '../assets/logo.vue.svg'
+import Logo from '../assets/logo.svg'
 
 export default {
   components: {
@@ -36,4 +32,24 @@ export default {
   }
 }
 </script>
+```
+
+## Plugin Options
+
+| Name    |   Type   | Description                                       |
+| :-------| :------: | :------------------------------------------------ |
+| `input` | `array`  | File extension to transform (default: `['.svg']`) |
+
+### `input`
+If you already have a plugin registered to load `.svg` files and want to keep using it in parallel to this plugin, you should overwrite the default `input` option.
+
+```js
+// snowpack.config.mjs
+export default {
+  plugins: [
+    ['snowpack-vue-svg-plugin', {
+      input: ['.vue.svg']
+    }]
+  ]
+}
 ```

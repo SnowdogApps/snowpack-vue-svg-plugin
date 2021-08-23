@@ -2,11 +2,13 @@ const { promises: fs } = require('fs')
 const hashsum = require('hash-sum')
 const { compileTemplate } = require('@vue/compiler-sfc')
 
-module.exports = function plugin() {
+module.exports = function plugin(snowpackConfig, pluginOptions) {
+  const input = pluginOptions.input || ['.svg']
+
   return {
     name: 'snowpack-vue-svg-plugin',
     resolve: {
-      input: ['.vue.svg'],
+      input,
       output: ['.js']
     },
     async load({ filePath, isSSR }) {
@@ -19,16 +21,14 @@ module.exports = function plugin() {
         source: svg.toString()
       })
 
-      const renderFn = isSSR ? `ssrRender` : `render`
+      const renderFn = isSSR ? 'ssrRender' : 'render'
 
-      return {
-        '.js': `
-          const defaultExport = {};
-          ${code}
-          defaultExport.${renderFn} = ${renderFn};
-          export default defaultExport;
-        `
-      }
+      return `
+        const defaultExport = {};
+        ${code}
+        defaultExport.${renderFn} = ${renderFn};
+        export default defaultExport;
+      `
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "snowpack-vue-svg-plugin",
   "description": "A Snowpack plugin to import SVG files like Vue components",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "license": "MIT",
   "repository": "SnowdogApps/snowpack-vue-svg-plugin",
   "keywords": [
@@ -13,7 +13,7 @@
   ],
   "main": "plugin.js",
   "dependencies": {
-    "@vue/compiler-sfc": "^3.2.0",
+    "@vue/compiler-sfc": "^3.2.4",
     "hash-sum": "^2.0.0"
   }
 }
