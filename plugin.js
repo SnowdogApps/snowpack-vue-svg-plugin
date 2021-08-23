@@ -1,9 +1,11 @@
-const { promises: fs } = require('fs')
-const hashsum = require('hash-sum')
+const fs = require('fs/promises')
 const { compileTemplate } = require('@vue/compiler-sfc')
+const { optimize } = require('svgo')
 
 module.exports = function plugin(snowpackConfig, pluginOptions) {
   const input = pluginOptions.input || ['.svg']
+  const svgo = pluginOptions.svgo || true
+  const svgoConfig = pluginOptions.svgoConfig || {}
 
   return {
     name: 'snowpack-vue-svg-plugin',
@@ -12,10 +14,14 @@ module.exports = function plugin(snowpackConfig, pluginOptions) {
       output: ['.js']
     },
     async load({ filePath, isSSR }) {
-      const svg = await fs.readFile(filePath)
+      let svg = await fs.readFile(filePath, 'utf-8')
+
+      if (svgo !== false)  {
+        svg = optimize(svg, svgoConfig).data
+      }
 
       const { code } = compileTemplate({
-        id: hashsum(filePath),
+        id: Buffer.from(filePath).toString('base64'),
         ssr: isSSR,
         ssrCssVars: [],
         source: svg.toString()
